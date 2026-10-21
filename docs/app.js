@@ -1,12 +1,12 @@
-import {Store,money} from './store.js';
+import {Store,money,validImage} from './store.js';
 const $=s=>document.querySelector(s), KEY='polo-mini-amazon-demo-v1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let store,category='All',sort='featured',admin=false,timer;
+let store,category='All',sort='featured',admin=false,timer,editorImage='assets/placeholder.svg',imageBusy=false,imageVersion=0;
 const categories=['Electronics','Clothing and Accessories','Home and Kitchen','Beauty and Personal Care','Sports and Fitness','Toys and Games','Books and Education','Automotive'];
 function notify(message){$('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(timer);timer=setTimeout(()=>$('#toast').classList.remove('visible'),3200);}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(store.serialize()));}catch{notify('Browser storage is unavailable. Changes last for this visit.');}}
 function route(){const r=location.hash.slice(1);return ['shop','cart','orders','admin'].includes(r)?r:'shop';}
-function image(p){return esc(/^assets\/[a-z0-9_.-]+$/i.test(p.image)?p.image:'assets/placeholder.svg');}
+function image(p){return esc(validImage(p.image)?p.image:'assets/placeholder.svg');}
 function productCard(p){return `<article class="product-card"><button class="image-button" data-detail="${p.id}" aria-label="View ${esc(p.name)}"><img src="${image(p)}" alt="${esc(p.name)}" loading="lazy"></button><div class="body"><p class="category">${esc(p.category)}</p><h3><button class="text-button" data-detail="${p.id}">${esc(p.name)}</button></h3><p class="description">${esc(p.description)}</p><div class="purchase"><div class="price">${money(p.cents)}</div><p class="stock">${p.stock?p.stock+' in stock':'Out of stock'}</p><button class="add" data-add="${p.id}" ${p.stock<1?'disabled':''}>${p.stock?'Add to cart':'Sold out'}</button></div></div></article>`;}
 function empty(title,text){return `<div class="empty"><h2>${title}</h2><p>${text}</p><a class="button" href="#shop">Explore products</a></div>`;}
 function shop(){
@@ -35,7 +35,7 @@ function render(){
  ({shop,cart,orders,admin:manage}[r])();
 }
 function detail(id){const p=store.find(id);if(!p)return;$('#product-details').innerHTML=`<div class="detail-grid"><img src="${image(p)}" alt="${esc(p.name)}"><div><p class="eyebrow">${esc(p.category)}</p><h2>${esc(p.name)}</h2><p>${esc(p.description)}</p><div class="price">${money(p.cents)}</div><p class="stock">${p.stock} in stock</p><button data-add="${id}" ${p.stock===0?'disabled':''}>Add to cart</button></div></div>`;$('#product-dialog').showModal();}
-function editor(id){if(!admin)return;const f=$('#product-form');f.reset();const p=store.find(id);f.elements.id.value=p?.id||'';$('#editor-title').textContent=p?'Edit product':'Add a product';f.elements.category.innerHTML=categories.map(c=>`<option>${esc(c)}</option>`).join('');if(p){for(const k of ['name','description','stock','category'])f.elements[k].value=p[k];f.elements.price.value=(p.cents/100).toFixed(2);}$('#edit-dialog').showModal();}
+function editor(id){if(!admin)return;const f=$('#product-form');f.reset();const p=store.find(id);imageVersion++;imageBusy=false;editorImage=p?.image||'assets/placeholder.svg';$('#image-preview').src=editorImage;$('#image-url').value=editorImage.startsWith('https:')?editorImage:'';$('#image-status').textContent='';f.querySelector('[type=submit]').disabled=false;f.elements.id.value=p?.id||'';$('#editor-title').textContent=p?'Edit product':'Add a product';f.elements.category.innerHTML=categories.map(c=>`<option>${esc(c)}</option>`).join('');if(p){for(const k of ['name','description','stock','category'])f.elements[k].value=p[k];f.elements.price.value=(p.cents/100).toFixed(2);}$('#edit-dialog').showModal();}
 function confirmAction(title,text,label){return new Promise(resolve=>{const d=$('#confirm-dialog');$('#confirm-title').textContent=title;$('#confirm-text').textContent=text;$('#confirm-yes').textContent=label;let answer=false;$('#confirm-yes').onclick=()=>{answer=true;d.close();};$('#confirm-no').onclick=()=>d.close();d.addEventListener('close',()=>resolve(answer),{once:true});d.showModal();});}
 document.addEventListener('click',async e=>{
  const b=e.target.closest('button');if(!b||!store)return;
@@ -51,7 +51,17 @@ document.addEventListener('click',async e=>{
 $('#search-form').onsubmit=e=>{e.preventDefault();category='All';if(route()!=='shop')location.hash='shop';else shop();};
 $('#search').addEventListener('input',()=>{if(store&&route()==='shop')shop();});
 $('#role-toggle').onclick=()=>{admin=!admin;if(admin){location.hash='admin';render();}else{location.hash='shop';render();}notify(admin?'Demo admin view enabled. Changes stay on this device.':'Customer view enabled.');};
-$('#product-form').onsubmit=e=>{e.preventDefault();if(!admin)return;try{store.saveProduct(Object.fromEntries(new FormData(e.target)));persist();$('#edit-dialog').close();render();notify('Product saved to your demo.');}catch(err){notify(err.message);}};
+$('#image-url').oninput=e=>{imageVersion++;imageBusy=false;$('#product-form [type=submit]').disabled=false;const url=e.target.value.trim();$('#image-file').value='';if(url&&validImage(url)){editorImage=url;$('#image-preview').src=url;$('#image-status').textContent='Image URL selected.';}else{$('#image-status').textContent=url?'Enter a valid HTTPS image URL.':'Current image kept.';}};
+$('#image-preview').onerror=()=>{$('#image-preview').src='assets/placeholder.svg';$('#image-status').textContent='Image could not load. Choose another image or check the URL.';};
+$('#image-file').onchange=async e=>{
+ const file=e.target.files[0];if(!file)return;const version=++imageVersion;
+ if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>10*1024*1024){$('#image-status').textContent='Choose a JPG, PNG, or WebP up to 10 MB.';e.target.value='';return;}
+ imageBusy=true;$('#product-form [type=submit]').disabled=true;$('#image-status').textContent='Preparing image…';
+ try{const bitmap=await createImageBitmap(file);const canvas=document.createElement('canvas');const scale=Math.min(1,600/Math.max(bitmap.width,bitmap.height));canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));const ctx=canvas.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close();const data=canvas.toDataURL('image/jpeg',0.8);if(!validImage(data))throw Error('Image is too large. Choose a smaller image.');if(version!==imageVersion)return;editorImage=data;$('#image-url').value='';$('#image-preview').src=data;$('#image-status').textContent='Image ready. Save the product to keep it.';}
+ catch(err){if(version===imageVersion)$('#image-status').textContent=err.message||'Unable to read this image. Choose another file.';}
+ finally{if(version===imageVersion){imageBusy=false;$('#product-form [type=submit]').disabled=false;}}
+};
+$('#product-form').onsubmit=e=>{e.preventDefault();if(!admin||imageBusy)return;const before=store.serialize();const snapshot=JSON.parse(JSON.stringify(before));try{const url=$('#image-url').value.trim();store.saveProduct({...Object.fromEntries(new FormData(e.target)),image:url||editorImage});localStorage.setItem(KEY,JSON.stringify(store.serialize()));$('#edit-dialog').close();render();notify('Product and image saved to your demo.');}catch(err){store=new Store(store.seed,snapshot);$('#image-status').textContent=err.name==='QuotaExceededError'?'Device storage is full. Choose a smaller image or remove unused demo products.':err.message;}};
 for(const d of document.querySelectorAll('dialog')){d.querySelector('.close')?.addEventListener('click',()=>d.close());d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}});}
 window.addEventListener('hashchange',()=>{if(store){render();window.scrollTo({top:0});}});
 async function init(){try{const r=await fetch('catalog.json');if(!r.ok)throw Error('Catalog unavailable');const seed=await r.json();let saved;try{saved=JSON.parse(localStorage.getItem(KEY));}catch{}store=new Store(seed,saved);render();}catch{$('#main').innerHTML='<section class="empty"><h1>Unable to load the catalog</h1><p>Please refresh this page to try again.</p><button onclick="location.reload()">Try again</button></section>';}}

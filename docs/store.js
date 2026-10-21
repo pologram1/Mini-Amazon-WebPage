@@ -1,5 +1,6 @@
 export const clone = value => JSON.parse(JSON.stringify(value));
 export const money = cents => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(cents/100);
+export const validImage = value => typeof value==='string' && (/^assets\/[a-z0-9_.-]+$/i.test(value) || /^data:image\/(jpeg|png|webp);base64,[a-z0-9+/=]+$/i.test(value) && value.length<=700000 || (()=>{try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password;}catch{return false;}})());
 export class Store {
   constructor(seed, saved) {
     this.seed=clone(seed);
@@ -34,10 +35,12 @@ export class Store {
   saveProduct(input){
     const cents=Math.round(Number(input.price)*100),stock=Number(input.stock);
     if(!input.name?.trim()||!input.description?.trim()||!input.category?.trim()||!Number.isSafeInteger(cents)||cents<=0||cents>10000000||!Number.isInteger(stock)||stock<0||stock>10000)throw Error('Enter a valid name, description, price, category, and stock.');
+    if(input.image!==undefined&&!validImage(input.image))throw Error('Choose an image or enter a valid HTTPS image URL.');
     let p=input.id?this.find(Number(input.id)):null;
     if(input.id&&!p)throw Error('Product not found.');
     if(!p){p={id:this.nextId++,image:'assets/placeholder.svg'};this.products.push(p);}
     Object.assign(p,{name:input.name.trim().slice(0,150),description:input.description.trim().slice(0,1000),cents,stock,category:input.category});
+    if(input.image!==undefined)p.image=input.image;
     if(this.cart[p.id]>stock){if(stock===0)delete this.cart[p.id];else this.cart[p.id]=stock;}
     return p;
   }
