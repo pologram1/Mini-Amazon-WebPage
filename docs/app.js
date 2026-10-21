@@ -1,4 +1,4 @@
-import {Store,money,validImage} from './store.js';
+import {Store,money,validImage} from './store.js?v=product-images-1';
 const $=s=>document.querySelector(s), KEY='polo-mini-amazon-demo-v1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let store,category='All',sort='featured',admin=false,timer,editorImage='assets/placeholder.svg',imageBusy=false,imageVersion=0;
