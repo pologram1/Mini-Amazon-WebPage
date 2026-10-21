@@ -1,4 +1,4 @@
-import {Store,money,validImage} from './store.js?v=product-images-1';
+import {Store,money,validImage} from './store.js?v=product-images-2';
 const $=s=>document.querySelector(s), KEY='polo-mini-amazon-demo-v1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let store,category='All',sort='featured',admin=false,timer,editorImage='assets/placeholder.svg',imageBusy=false,imageVersion=0;
@@ -26,7 +26,7 @@ function orders(){
 }
 function manage(){
  if(!admin){$('#main').innerHTML=empty('Try the admin view','Select “Try admin view” in the header to explore product management.');return;}
- $('#main').innerHTML=`<p class="eyebrow">DEMO ADMIN VIEW</p><h1>Product management</h1><p class="muted">Add, edit, or remove products in your local copy. This demo role switch is not real authentication.</p><div class="admin-tools"><button id="new-product">+ Add product</button><button id="reset" class="outline">Reset demo data</button></div><section class="panel table-wrap"><table><thead><tr><th>Image</th><th>Product</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody>${store.products.map(p=>`<tr><td><img src="${image(p)}" alt=""></td><td>${esc(p.name)}<br><span class="muted">${esc(p.category)}</span></td><td>${money(p.cents)}</td><td>${p.stock}</td><td><button data-edit="${p.id}" class="outline">Edit</button><button data-delete="${p.id}" class="outline">Delete</button></td></tr>`).join('')}</tbody></table></section>`;
+ $('#main').innerHTML=`<p class="eyebrow">DEMO ADMIN VIEW</p><h1>Product management</h1><p class="muted">Add, edit, or remove products in your local copy. This demo role switch is not real authentication.</p><div class="admin-tools"><button id="new-product">+ Add product</button><button id="reset" class="outline">Reset demo data</button></div><section class="panel table-wrap"><table><thead><tr><th>Image</th><th>Product</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody>${store.products.map(p=>`<tr><td><img src="${image(p)}" alt=""></td><td>${esc(p.name)}<br><span class="muted">${esc(p.category)}</span></td><td>${money(p.cents)}</td><td>${p.stock}</td><td><button data-image="${p.id}" class="outline">Add / change image</button><button data-edit="${p.id}" class="outline">Edit</button><button data-delete="${p.id}" class="outline">Delete</button></td></tr>`).join('')}</tbody></table></section>`;
  $('#new-product').onclick=()=>editor();$('#reset').onclick=async()=>{if(await confirmAction('Reset this demo?','This removes your demo orders, cart, and inventory edits on this device.','Reset demo')){store.reset();persist();render();notify('Original demo catalog restored.');}};
 }
 function render(){
@@ -45,6 +45,7 @@ document.addEventListener('click',async e=>{
   if(b.dataset.quantity){store.setQuantity(Number(b.dataset.quantity),Number(b.dataset.q));persist();render();}
   if(b.dataset.category){category=b.dataset.category;shop();}
   if(b.dataset.edit)editor(Number(b.dataset.edit));
+  if(b.dataset.image){editor(Number(b.dataset.image));$('#image-file').focus();}
   if(b.dataset.delete&&admin&&await confirmAction('Remove this product?','The product will be removed from your demo catalog and cart. Existing orders remain unchanged.','Remove product')){store.remove(Number(b.dataset.delete));persist();render();}
  }catch(err){notify(err.message);}
 });
