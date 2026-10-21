@@ -1,0 +1,155 @@
+[
+  {
+    "id": 1,
+    "name": "HP Laptop",
+    "description": "15-inch laptop",
+    "cents": 79999,
+    "stock": 10,
+    "category": "Electronics",
+    "image": "assets/hp_laptop.jpg"
+  },
+  {
+    "id": 2,
+    "name": "iPhone 13",
+    "description": "Apple smartphone",
+    "cents": 99999,
+    "stock": 8,
+    "category": "Electronics",
+    "image": "assets/iphone13.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Black Shirt",
+    "description": "Cotton size M",
+    "cents": 1999,
+    "stock": 50,
+    "category": "Clothing and Accessories",
+    "image": "assets/black_shirt.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Sport Shoes",
+    "description": "Running shoes",
+    "cents": 5999,
+    "stock": 30,
+    "category": "Clothing and Accessories",
+    "image": "assets/sport_shoes.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Modern Sofa",
+    "description": "3-seat sofa",
+    "cents": 29999,
+    "stock": 5,
+    "category": "Home and Kitchen",
+    "image": "assets/sofa.jpg"
+  },
+  {
+    "id": 6,
+    "name": "LED Lamp",
+    "description": "Desk lamp",
+    "cents": 2999,
+    "stock": 25,
+    "category": "Home and Kitchen",
+    "image": "assets/led_lamp.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Dior Perfume",
+    "description": "Elegant fragrance",
+    "cents": 8999,
+    "stock": 15,
+    "category": "Beauty and Personal Care",
+    "image": "assets/dior_perfume.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Makeup Kit",
+    "description": "Complete set",
+    "cents": 4999,
+    "stock": 20,
+    "category": "Beauty and Personal Care",
+    "image": "assets/makeup_kit.jpg"
+  },
+  {
+    "id": 9,
+    "name": "20lb Dumbbells",
+    "description": "Weight set",
+    "cents": 3999,
+    "stock": 18,
+    "category": "Sports and Fitness",
+    "image": "assets/dumbbells.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Basketball Ball",
+    "description": "Official size",
+    "cents": 2499,
+    "stock": 40,
+    "category": "Sports and Fitness",
+    "image": "assets/basketball.jpg"
+  },
+  {
+    "id": 11,
+    "name": "LEGO Set",
+    "description": "Creative toy set",
+    "cents": 3499,
+    "stock": 22,
+    "category": "Toys and Games",
+    "image": "assets/lego_set.jpg"
+  },
+  {
+    "id": 12,
+    "name": "PS5 Video Game",
+    "description": "Action game",
+    "cents": 6999,
+    "stock": 12,
+    "category": "Toys and Games",
+    "image": "assets/ps5_game.jpg"
+  },
+  {
+    "id": 13,
+    "name": "Java Book",
+    "description": "Learn Java",
+    "cents": 3999,
+    "stock": 10,
+    "category": "Books and Education",
+    "image": "assets/java_book.jpg"
+  },
+  {
+    "id": 14,
+    "name": "SQL Course",
+    "description": "Database basics",
+    "cents": 1999,
+    "stock": 50,
+    "category": "Books and Education",
+    "image": "assets/sql_course.jpg"
+  },
+  {
+    "id": 15,
+    "name": "Motor Oil",
+    "description": "5W-30",
+    "cents": 2999,
+    "stock": 35,
+    "category": "Automotive",
+    "image": "assets/motor_oil.jpg"
+  },
+  {
+    "id": 16,
+    "name": "Car Charger",
+    "description": "Fast USB charger",
+    "cents": 1499,
+    "stock": 60,
+    "category": "Automotive",
+    "image": "assets/car_charger.jpg"
+  },
+  {
+    "id": 17,
+    "name": "Jesus Portrait",
+    "description": "Religious artwork",
+    "cents": 4999,
+    "stock": 20,
+    "category": "Beauty and Personal Care",
+    "image": "assets/jessenlacruz_n.jpg"
+  }
+]

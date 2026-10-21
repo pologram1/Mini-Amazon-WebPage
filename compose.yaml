@@ -1,0 +1,28 @@
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: mini_amazon_db
+      MYSQL_USER: mini_amazon
+      MYSQL_PASSWORD: ${MINIAMAZON_DB_PASSWORD:?Set MINIAMAZON_DB_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MINIAMAZON_DB_ROOT_PASSWORD:?Set MINIAMAZON_DB_ROOT_PASSWORD in .env}
+    volumes:
+      - database:/var/lib/mysql
+      - ./deployment/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  web:
+    build: .
+    ports: ["8080:8080"]
+    environment:
+      MINIAMAZON_DB_URL: jdbc:mysql://db:3306/mini_amazon_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      MINIAMAZON_DB_USER: mini_amazon
+      MINIAMAZON_DB_PASSWORD: ${MINIAMAZON_DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  database:

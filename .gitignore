@@ -1,0 +1,6 @@
+.DS_Store
+__MACOSX/
+*.class
+target/
+.env
+.preview/

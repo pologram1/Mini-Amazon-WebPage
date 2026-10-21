@@ -1,0 +1,81 @@
+<%@ page import="java.util.List" %>          <!-- Lista -->
+<%@ page import="dao.ProductDAO" %>          <!-- DAO de productos -->
+<%@ page import="model.ProductClass" %>      <!-- Clase del producto -->
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    /* Datos de sesión */
+    String username = (String) session.getAttribute("username");
+    String role = (String) session.getAttribute("role");
+
+    /* Si no está logueado */
+    if (username == null) {
+        response.sendRedirect("login.html");
+        return;
+    }
+
+    /* Si no es admin */
+    if (!"admin".equalsIgnoreCase(role)) {
+        response.sendRedirect("index.html");
+        return;
+    }
+
+    /* Obtengo todos los productos */
+    ProductDAO dao = new ProductDAO();
+    List<ProductClass> products = dao.getAllProducts();
+%>
+
+<html>
+<head>
+    <title>List Products</title>
+</head>
+<body>
+
+<!-- Título -->
+<h2>Product List</h2>
+
+<!-- Tabla de productos -->
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Image</th>
+        <th>Actions</th>
+    </tr>
+
+    <!-- Recorro los productos -->
+    <% for (ProductClass p : products) { %>
+    <tr>
+        <td><%= p.getProductId() %></td>
+        <td><%= p.getName() %></td>
+        <td><%= p.getPrice() %></td>
+        <td><%= p.getStock() %></td>
+
+        <!-- Imagen -->
+        <td>
+            <% if (p.getImage() != null && !p.getImage().isEmpty()) { %>
+                <img src="images/<%= p.getImage() %>" width="100">
+            <% } else { %>
+                No image
+            <% } %>
+        </td>
+
+        <!-- Acciones -->
+        <td>
+            <a href="EditProductServlet?id=<%= p.getProductId() %>">Edit</a>
+            |
+            <a href="RemoveProductServlet?id=<%= p.getProductId() %>">Delete</a>
+        </td>
+    </tr>
+    <% } %>
+</table>
+
+<br>
+
+<!-- Volver al menú admin -->
+<a href="welcomeMenu.jsp">Back to Admin Menu</a>
+
+</body>
+</html>
