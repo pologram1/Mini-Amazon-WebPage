@@ -28,8 +28,11 @@
 <html>
 <head>
     <title>List Products</title>
+<link rel="stylesheet" href="project-brand.css?v=1">
 </head>
 <body>
+<a class="project-brand-link" href="index.html" aria-label="MiniAmazon home"><img class="project-brand-logo" src="images/miniamazon-logo.webp" alt="MiniAmazon — by Polo Studios" width="210" height="110"></a>
+
 
 <!-- Título -->
 <h2>Product List</h2>

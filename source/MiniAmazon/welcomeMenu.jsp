@@ -4,9 +4,12 @@
 <html>
 <head>
     <title>Administrator Menu</title>
+<link rel="stylesheet" href="project-brand.css?v=1">
 </head>
 
 <body style="background-color:#FFFACD; font-family:Arial;">
+<a class="project-brand-link" href="index.html" aria-label="MiniAmazon home"><img class="project-brand-logo" src="images/miniamazon-logo.webp" alt="MiniAmazon — by Polo Studios" width="210" height="110"></a>
+
 
 <%
     /* Obtengo datos de sesión */
