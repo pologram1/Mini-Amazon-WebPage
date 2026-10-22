@@ -1,0 +1,12 @@
+/* Transparent project identities shared across portfolio and apps. */
+img.adaptive-logo,img.brand-mark{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important;object-fit:contain!important;object-position:center;filter:brightness(0);transition:filter .18s ease}
+:root[data-theme=dark] img.adaptive-logo,:root[data-theme=dark] img.brand-mark{filter:brightness(0) invert(1)}
+.showcase-home>header img.brand-mark,.studio-showcase img.adaptive-logo{filter:brightness(0) invert(1)}
+.showcase-art:has(img.adaptive-logo){background:transparent;border:0;box-shadow:none;transform:none;overflow:visible}
+.showcase-art:has(img.adaptive-logo)::after{display:none}
+@media(prefers-reduced-motion:reduce){img.adaptive-logo,img.brand-mark{transition:none}}
+
+:root{--surface:#fff;--header:#f5f1e8}
+:root[data-theme=dark]{color-scheme:dark;--ink:#f0ede5;--muted:#b8bebc;--line:#3a4648;--bg:#111819;--surface:#1d282a;--cream:#283130;--header:#172224;--navy:#263c44}
+header{background:var(--header);color:var(--ink)}nav{border-color:var(--line)}.badge{background:var(--line)}button:not(.outline):not(.text-button):not(.close):not(.image-button){color:#172b3c}button.outline,.text-button,.close{color:var(--ink)}.category-tabs button,.product-card,.empty,.panel,dialog{background:var(--surface);color:var(--ink)}.category-tabs button[aria-pressed=true]{background:var(--gold);color:#172b3c}.quantity button{color:var(--ink)!important}input,select,textarea{background:var(--surface);color:var(--ink);border-color:var(--line)}.stock{color:#499269}:root[data-theme=dark] .stock{color:#a3cfac}.mode-toggle{border:1px solid var(--line);border-radius:30px;padding:9px 11px;background:var(--surface)!important;color:var(--ink)!important;font-size:14px;white-space:nowrap}.brand.project-brand-link img.adaptive-logo{background:transparent;border:0;border-radius:0;object-fit:contain}.topbar{gap:18px}
+@media(max-width:700px){.mode-toggle{padding:8px;font-size:12px}.topbar{flex-wrap:wrap;gap:12px}.topbar .project-brand-link{margin-right:auto}.topbar form{order:3;flex-basis:100%}.topbar #role-toggle{font-size:11px;padding:9px}.topbar .mode-toggle{margin-left:auto}}
