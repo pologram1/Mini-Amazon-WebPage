@@ -2,154 +2,171 @@
   {
     "id": 1,
     "name": "HP Laptop",
-    "description": "15-inch laptop",
+    "description": "A 15-inch HP laptop for everyday computing, studying, and working on personal projects. Its screen gives you room to read documents, browse the web, and organize your tasks.",
     "cents": 79999,
     "stock": 10,
     "category": "Electronics",
-    "image": "assets/hp_laptop.jpg"
+    "image": "assets/hp_laptop.jpg",
+    "previousDescription": "15-inch laptop"
   },
   {
     "id": 2,
     "name": "iPhone 13",
-    "description": "Apple smartphone",
+    "description": "An Apple iPhone 13 smartphone for staying connected, taking photos, and using your everyday apps. Explore this electronics pick alongside the rest of the MiniAmazon catalog.",
     "cents": 99999,
     "stock": 8,
     "category": "Electronics",
-    "image": "assets/iphone13.jpg"
+    "image": "assets/iphone13.jpg",
+    "previousDescription": "Apple smartphone"
   },
   {
     "id": 3,
     "name": "Black Shirt",
-    "description": "Cotton size M",
+    "description": "A black cotton shirt in size M, easy to pair with jeans, shorts, or your favorite sneakers. A simple wardrobe staple for an everyday casual outfit.",
     "cents": 1999,
     "stock": 50,
     "category": "Clothing and Accessories",
-    "image": "assets/black_shirt.jpg"
+    "image": "assets/black_shirt.jpg",
+    "previousDescription": "Cotton size M"
   },
   {
     "id": 4,
     "name": "Sport Shoes",
-    "description": "Running shoes",
+    "description": "Running shoes for your workout rotation and everyday sporty looks. Pair them with your training clothes or casual outfits when you want an athletic style.",
     "cents": 5999,
     "stock": 30,
     "category": "Clothing and Accessories",
-    "image": "assets/sport_shoes.jpg"
+    "image": "assets/sport_shoes.jpg",
+    "previousDescription": "Running shoes"
   },
   {
     "id": 5,
     "name": "Modern Sofa",
-    "description": "3-seat sofa",
+    "description": "A three-seat sofa that creates a shared place to sit, chat, or relax at home. A practical centerpiece for a living room or lounge area.",
     "cents": 29999,
     "stock": 5,
     "category": "Home and Kitchen",
-    "image": "assets/sofa.jpg"
+    "image": "assets/sofa.jpg",
+    "previousDescription": "3-seat sofa"
   },
   {
     "id": 6,
     "name": "LED Lamp",
-    "description": "Desk lamp",
+    "description": "An LED desk lamp for adding light to a study space, work surface, or bedside table. Keep it nearby when reading, writing, or working on your next project.",
     "cents": 2999,
     "stock": 25,
     "category": "Home and Kitchen",
-    "image": "assets/led_lamp.jpg"
+    "image": "assets/led_lamp.jpg",
+    "previousDescription": "Desk lamp"
   },
   {
     "id": 7,
     "name": "Dior Perfume",
-    "description": "Elegant fragrance",
+    "description": "An elegant Dior fragrance for adding a finishing touch to your personal style. A beauty pick for fragrance enthusiasts exploring the MiniAmazon catalog.",
     "cents": 8999,
     "stock": 15,
     "category": "Beauty and Personal Care",
-    "image": "assets/dior_perfume.jpg"
+    "image": "assets/dior_perfume.jpg",
+    "previousDescription": "Elegant fragrance"
   },
   {
     "id": 8,
     "name": "Makeup Kit",
-    "description": "Complete set",
+    "description": "A makeup set for building a beauty routine or trying a new look. Keep your makeup essentials together in one kit.",
     "cents": 4999,
     "stock": 20,
     "category": "Beauty and Personal Care",
-    "image": "assets/makeup_kit.jpg"
+    "image": "assets/makeup_kit.jpg",
+    "previousDescription": "Complete set"
   },
   {
     "id": 9,
     "name": "20lb Dumbbells",
-    "description": "Weight set",
+    "description": "A 20 lb dumbbell weight set for strength-training routines. A fitness pick for adding weighted movements to your workout space.",
     "cents": 3999,
     "stock": 18,
     "category": "Sports and Fitness",
-    "image": "assets/dumbbells.jpg"
+    "image": "assets/dumbbells.jpg",
+    "previousDescription": "Weight set"
   },
   {
     "id": 10,
     "name": "Basketball Ball",
-    "description": "Official size",
+    "description": "An official-size basketball for practicing dribbling, passing, and shooting. Bring it to your next basketball session or use it to work on your skills.",
     "cents": 2499,
     "stock": 40,
     "category": "Sports and Fitness",
-    "image": "assets/basketball.jpg"
+    "image": "assets/basketball.jpg",
+    "previousDescription": "Official size"
   },
   {
     "id": 11,
     "name": "LEGO Set",
-    "description": "Creative toy set",
+    "description": "A creative LEGO building set for hands-on play and imaginative construction. Build, take apart, and explore new ideas one piece at a time.",
     "cents": 3499,
     "stock": 22,
     "category": "Toys and Games",
-    "image": "assets/lego_set.jpg"
+    "image": "assets/lego_set.jpg",
+    "previousDescription": "Creative toy set"
   },
   {
     "id": 12,
     "name": "PS5 Video Game",
-    "description": "Action game",
+    "description": "An action video game for PlayStation 5. A gaming pick for players looking for their next console adventure.",
     "cents": 6999,
     "stock": 12,
     "category": "Toys and Games",
-    "image": "assets/ps5_game.jpg"
+    "image": "assets/ps5_game.jpg",
+    "previousDescription": "Action game"
   },
   {
     "id": 13,
     "name": "Java Book",
-    "description": "Learn Java",
+    "description": "A book for learning Java programming and developing your coding knowledge. Add it to your study resources as you explore software development.",
     "cents": 3999,
     "stock": 10,
     "category": "Books and Education",
-    "image": "assets/java_book.jpg"
+    "image": "assets/java_book.jpg",
+    "previousDescription": "Learn Java"
   },
   {
     "id": 14,
     "name": "SQL Course",
-    "description": "Database basics",
+    "description": "A course introducing SQL and database basics. Explore how structured queries help you work with information stored in relational databases.",
     "cents": 1999,
     "stock": 50,
     "category": "Books and Education",
-    "image": "assets/sql_course.jpg"
+    "image": "assets/sql_course.jpg",
+    "previousDescription": "Database basics"
   },
   {
     "id": 15,
     "name": "Motor Oil",
-    "description": "5W-30",
+    "description": "5W-30 motor oil for vehicles whose maintenance requirements call for this viscosity. Check your vehicle manual and the product label for compatibility before use.",
     "cents": 2999,
     "stock": 35,
     "category": "Automotive",
-    "image": "assets/motor_oil.jpg"
+    "image": "assets/motor_oil.jpg",
+    "previousDescription": "5W-30"
   },
   {
     "id": 16,
     "name": "Car Charger",
-    "description": "Fast USB charger",
+    "description": "A fast USB car charger for keeping compatible devices powered while traveling. Check the charger connection and your device's cable requirements before use.",
     "cents": 1499,
     "stock": 60,
     "category": "Automotive",
-    "image": "assets/car_charger.jpg"
+    "image": "assets/car_charger.jpg",
+    "previousDescription": "Fast USB charger"
   },
   {
     "id": 17,
     "name": "Jesus Portrait",
-    "description": "Religious artwork",
+    "description": "A religious portrait of Jesus for a personal space or decorative display. An artwork selection for shoppers looking for faith-inspired decor.",
     "cents": 4999,
     "stock": 20,
     "category": "Beauty and Personal Care",
-    "image": "assets/jessenlacruz_n.jpg"
+    "image": "assets/jessenlacruz_n.jpg",
+    "previousDescription": "Religious artwork"
   }
 ]

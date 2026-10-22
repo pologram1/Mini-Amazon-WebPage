@@ -14,6 +14,11 @@ export class Store {
         }
       }
     }
+    // Upgrade only untouched original descriptions; preserve local inventory edits.
+    for (const p of this.products) {
+      const original=this.seed.find(item=>item.id===p.id);
+      if(original?.previousDescription && p.name===original.name && p.description===original.previousDescription) p.description=original.description;
+    }
   }
   find(id){return this.products.find(p=>p.id===id);}
   lines(){return Object.entries(this.cart).map(([id,quantity])=>({product:this.find(Number(id)),quantity})).filter(x=>x.product);}
