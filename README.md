@@ -1,5 +1,30 @@
 # MiniAmazon
 
+**An e-commerce workflow demo with a separate Java/JSP/MySQL application.**
+
+[![Validate MiniAmazon](https://github.com/pologram1/Mini-Amazon-WebPage/actions/workflows/validate.yml/badge.svg)](https://github.com/pologram1/Mini-Amazon-WebPage/actions/workflows/validate.yml)
+
+![MiniAmazon browser storefront](docs/images/preview.jpg)
+
+## At a glance
+
+**Status:** working browser demo + academic Java source. Explore product discovery, descriptions, cart rules, sample checkout, order history, and local product management. No real purchases occur.
+
+**Contribution:** academic project by **Miguel A. De Jesus**, presented through Polo Studios. This repository includes the supplied Java application and a browser adaptation for reviewers, with deployment material and automated checks.
+
+## Architecture and code map
+
+| Path | Responsibility |
+| --- | --- |
+| `docs/` | Static browser storefront, JavaScript state/model logic, styles, and product assets. |
+| `source/MiniAmazon/` | Original Java/JSP/Servlet/JDBC application and academic SQL reference material. |
+| `deployment/`, `pom.xml`, `compose.yaml` | Corrected database initializer, WAR build, and local Java/MySQL deployment. |
+| `tests/` | Browser cart, stock, checkout, persistence, and product-description tests. |
+| `.github/workflows/validate.yml` | Browser tests and Java WAR compilation. |
+
+The browser demo saves to local storage. The Java implementation runs separately on Tomcat and MySQL; it does not share the demo's local data. See the existing setup instructions below.
+
+
 An academic e-commerce application by **Miguel A. De Jesus Rosa**, showcased through Polo Studios.
 
 **[Open MiniAmazon](https://pologram1.github.io/Mini-Amazon-WebPage/)** · **[Polo Studios](https://pologram1.github.io/POLO-TECH/projects.html#mini-amazon)**
