@@ -6,6 +6,8 @@
 
 ![MiniAmazon browser storefront](docs/images/preview.jpg)
 
+Shown in dark mode. [View the light theme](docs/images/preview-light.jpg).
+
 ## At a glance
 
 The polished browser demo includes stock-aware product quantity selection, clearer cart/order feedback, light/dark storefront refinements, and atomic local saves that preserve prior data when storage fails. See the [short demo tour](docs/SHARING.md) for a suggested walkthrough and accurate talking points.
