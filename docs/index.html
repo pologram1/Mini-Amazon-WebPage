@@ -1,14 +1,212 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Explore Miguel A. De Jesus's MiniAmazon e-commerce project. Browse the original catalog, try the cart, and place a sample order."><title>MiniAmazon · Polo Studios</title><link rel="stylesheet" href="style.css?v=descriptions-1"><link rel="stylesheet" href="project-brand.css?v=1"><script type="module" src="app.js?v=descriptions-1"></script><meta name="color-scheme" content="light dark"><script src="theme.js?v=1"></script><link rel="stylesheet" href="theme.css?v=1"></head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-<div class="demo-bar"><span>Interactive portfolio demo · No real purchases</span><a href="https://github.com/pologram1/Mini-Amazon-WebPage" target="_blank" rel="noopener">View Java source ↗</a></div>
-<header><div class="topbar wrap"><a class="brand project-brand-link" href="#shop" aria-label="MiniAmazon home"><img class="project-brand-logo adaptive-logo" src="assets/mini-transparent.webp" alt="MiniAmazon — by Polo Studios" width="210" height="110" fetchpriority="high"></a><form id="search-form" role="search"><label class="sr-only" for="search">Search products</label><input id="search" type="search" placeholder="Search the original catalog…"><button type="submit">Search</button></form><button id="theme-toggle" class="mode-toggle" type="button" role="switch" aria-label="Dark mode" aria-checked="false" title="Switch theme"><span aria-hidden="true">☀ / ☾</span></button><span id="theme-status" class="sr-only" role="status" aria-live="polite"></span><button id="role-toggle" class="outline">Try admin view</button></div><nav class="wrap" aria-label="Store navigation"><a href="#shop" data-route="shop">Shop</a><a href="#cart" data-route="cart">Cart <span id="cart-count" class="badge">0</span></a><a href="#orders" data-route="orders">My orders</a><a href="#admin" data-route="admin" id="admin-nav" hidden>Manage products</a><a class="portfolio" href="https://pologram1.github.io/POLO-TECH/projects.html#mini-amazon">Back to Polo Studios ↗</a></nav></header>
-<main id="main" class="wrap" tabindex="-1"><p class="loading">Loading the MiniAmazon catalog…</p></main>
-<footer class="wrap"><div><strong>MiniAmazon</strong><p>An academic e-commerce project by Miguel A. De Jesus.</p></div><p>The live browser demo saves on this device. The original Java / JSP / MySQL application is available on GitHub.</p><a href="https://github.com/pologram1/Mini-Amazon-WebPage#project-dates">Project history ↗</a></footer>
-<div id="toast" role="status" aria-live="polite"></div>
-<dialog id="product-dialog" aria-label="Product details"><button class="close" aria-label="Close product details">×</button><div id="product-details"></div></dialog>
-<dialog id="edit-dialog"><button class="close" aria-label="Close product editor">×</button><form id="product-form"><p class="eyebrow">DEMO INVENTORY</p><h2 id="editor-title">Add a product</h2><input name="id" type="hidden"><fieldset class="image-editor"><legend>Add product image</legend><img id="image-preview" src="assets/placeholder.svg" alt="Product image preview" width="140" height="140"><label>Upload image<input id="image-file" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="image-help"></label><p id="image-help" class="muted">Choose a JPG, PNG, or WebP up to 10 MB. Images are resized and saved on this device.</p><label>Or use an image URL<input id="image-url" type="url" placeholder="https://example.com/product.jpg"></label><p id="image-status" role="status" aria-live="polite"></p></fieldset><label>Product name<input name="name" required maxlength="150"></label><label>Description<textarea name="description" required maxlength="1000"></textarea></label><div class="form-row"><label>Price (USD)<input name="price" type="number" min="0.01" max="100000" step="0.01" required></label><label>Stock<input name="stock" type="number" min="0" max="10000" step="1" required></label></div><label>Category<select name="category" required></select></label><p class="muted">Changes affect only your demo on this device.</p><button type="submit">Save product</button></form></dialog>
-<dialog id="confirm-dialog"><h2 id="confirm-title">Confirm</h2><p id="confirm-text"></p><div class="actions"><button id="confirm-yes">Confirm</button><button id="confirm-no" class="outline">Cancel</button></div></dialog>
-<script src="https://pologram1.github.io/POLO-TECH/assistant/widget.js?v=2" data-context="mini" defer></script></body></html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Explore Miguel A. De Jesus's MiniAmazon e-commerce project. Browse the original catalog, try the cart, and place a sample order."
+    />
+    <title>MiniAmazon · Polo Studios</title>
+    <link rel="stylesheet" href="style.css?v=descriptions-1" />
+    <link rel="stylesheet" href="project-brand.css?v=1" />
+    <script type="module" src="app.js?v=polish-2"></script>
+    <meta name="color-scheme" content="light dark" />
+    <script src="theme.js?v=1"></script>
+    <link rel="stylesheet" href="theme.css?v=1" />
+    <link rel="stylesheet" href="polish.css?v=polish-2" />
+    <link rel="icon" href="assets/mini-transparent.webp" type="image/webp" />
+    <meta
+      property="og:title"
+      content="MiniAmazon — an e-commerce project by Miguel A. De Jesus"
+    />
+    <meta
+      property="og:description"
+      content="Explore a working storefront demo: product discovery, a stock-aware cart, and sample checkout. Java/JSP/MySQL source included."
+    />
+    <meta
+      property="og:image"
+      content="https://pologram1.github.io/Mini-Amazon-WebPage/images/preview.jpg"
+    />
+    <meta
+      property="og:url"
+      content="https://pologram1.github.io/Mini-Amazon-WebPage/"
+    />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="demo-bar">
+      <span>Interactive portfolio demo · No real purchases</span
+      ><a
+        href="https://github.com/pologram1/Mini-Amazon-WebPage"
+        target="_blank"
+        rel="noopener"
+        >View Java source ↗</a
+      >
+    </div>
+    <header>
+      <div class="topbar wrap">
+        <a
+          class="brand project-brand-link"
+          href="#shop"
+          aria-label="MiniAmazon home"
+          ><img
+            class="project-brand-logo adaptive-logo"
+            src="assets/mini-transparent.webp"
+            alt="MiniAmazon — by Polo Studios"
+            width="210"
+            height="110"
+            fetchpriority="high"
+        /></a>
+        <form id="search-form" role="search">
+          <label class="sr-only" for="search">Search products</label
+          ><input
+            id="search"
+            type="search"
+            placeholder="Search products, categories…"
+          /><button type="submit">Search</button>
+        </form>
+        <button
+          id="theme-toggle"
+          class="mode-toggle"
+          type="button"
+          role="switch"
+          aria-label="Dark mode"
+          aria-checked="false"
+          title="Switch theme"
+        >
+          <span aria-hidden="true">☀ / ☾</span></button
+        ><span
+          id="theme-status"
+          class="sr-only"
+          role="status"
+          aria-live="polite"
+        ></span
+        ><button id="role-toggle" class="outline">Try admin view</button>
+      </div>
+      <nav class="wrap" aria-label="Store navigation">
+        <a href="#shop" data-route="shop">Shop</a
+        ><a href="#cart" data-route="cart"
+          >Cart <span id="cart-count" class="badge">0</span></a
+        ><a href="#orders" data-route="orders">My orders</a
+        ><a href="#admin" data-route="admin" id="admin-nav" hidden
+          >Manage products</a
+        ><a
+          class="portfolio"
+          href="https://pologram1.github.io/POLO-TECH/projects.html#mini-amazon"
+          >Back to Polo Studios ↗</a
+        >
+      </nav>
+    </header>
+    <div class="wrap"><p id="save-status" role="alert" hidden></p></div>
+    <main id="main" class="wrap" tabindex="-1">
+      <p class="loading">Loading the MiniAmazon catalog…</p>
+    </main>
+    <footer class="wrap">
+      <div>
+        <strong>MiniAmazon</strong>
+        <p>An academic e-commerce project by Miguel A. De Jesus.</p>
+      </div>
+      <p>
+        The live browser demo saves on this device. The original Java / JSP /
+        MySQL application is available on GitHub.
+      </p>
+      <a href="https://github.com/pologram1/Mini-Amazon-WebPage#project-dates"
+        >Project history ↗</a
+      >
+    </footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <dialog id="product-dialog" aria-labelledby="detail-title">
+      <button class="close" aria-label="Close product details">×</button>
+      <div id="product-details"></div>
+      <p
+        id="detail-feedback"
+        class="dialog-feedback"
+        role="status"
+        aria-live="polite"
+      ></p>
+    </dialog>
+    <dialog id="edit-dialog" aria-labelledby="editor-title">
+      <button class="close" aria-label="Close product editor">×</button>
+      <form id="product-form">
+        <p class="eyebrow">DEMO INVENTORY</p>
+        <h2 id="editor-title">Add a product</h2>
+        <input name="id" type="hidden" />
+        <fieldset class="image-editor">
+          <legend>Add product image</legend>
+          <img
+            id="image-preview"
+            src="assets/placeholder.svg"
+            alt="Product image preview"
+            width="140"
+            height="140"
+          /><label
+            >Upload image<input
+              id="image-file"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              aria-describedby="image-help"
+          /></label>
+          <p id="image-help" class="muted">
+            Choose a JPG, PNG, or WebP up to 10 MB. Images are resized and saved
+            on this device.
+          </p>
+          <label
+            >Or use an image URL<input
+              id="image-url"
+              type="url"
+              placeholder="https://example.com/product.jpg"
+          /></label>
+          <p id="image-status" role="status" aria-live="polite"></p>
+        </fieldset>
+        <label>Product name<input name="name" required maxlength="150" /></label
+        ><label
+          >Description<textarea
+            name="description"
+            required
+            maxlength="1000"
+          ></textarea>
+        </label>
+        <div class="form-row">
+          <label
+            >Price (USD)<input
+              name="price"
+              type="number"
+              min="0.01"
+              max="100000"
+              step="0.01"
+              required /></label
+          ><label
+            >Stock<input
+              name="stock"
+              type="number"
+              min="0"
+              max="10000"
+              step="1"
+              required
+          /></label>
+        </div>
+        <label>Category<select name="category" required></select></label>
+        <p class="muted">Changes affect only your demo on this device.</p>
+        <button type="submit">Save product</button>
+      </form>
+    </dialog>
+    <dialog
+      id="confirm-dialog"
+      aria-labelledby="confirm-title"
+      aria-describedby="confirm-text"
+    >
+      <h2 id="confirm-title">Confirm</h2>
+      <p id="confirm-text"></p>
+      <div class="actions">
+        <button id="confirm-yes">Confirm</button
+        ><button id="confirm-no" class="outline">Cancel</button>
+      </div>
+    </dialog>
+    <script
+      src="https://pologram1.github.io/POLO-TECH/assistant/widget.js?v=2"
+      data-context="mini"
+      defer
+    ></script>
+  </body>
+</html>
