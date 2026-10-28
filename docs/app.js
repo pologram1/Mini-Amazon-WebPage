@@ -69,7 +69,7 @@ function productCard(p) {
   return `<article class="product-card"><button class="image-button" data-detail="${p.id}" aria-label="View ${esc(p.name)}"><img src="${image(p)}" alt="${esc(p.name)}" loading="lazy"></button><div class="body"><p class="category">${esc(p.category)}</p><h3><button class="text-button" data-detail="${p.id}">${esc(p.name)}</button></h3><p class="description">${esc(p.description)}</p><button class="text-button view-details" data-detail="${p.id}" aria-label="View details for ${esc(p.name)}">View details →</button><div class="purchase"><div class="price">${money(p.cents)}</div><p class="stock">${p.stock ? p.stock + " in stock" : "Out of stock"}</p><button class="add" data-add="${p.id}" ${available(p) < 1 ? "disabled" : ""}>${!p.stock ? "Sold out" : available(p) < 1 ? "All in cart" : "+ Add to cart"}</button><p class="in-cart">${store.cart[p.id] ? store.cart[p.id] + " in your cart" : ""}</p></div></div></article>`;
 }
 function empty(title, text) {
-  return `<div class="empty"><h2>${title}</h2><p>${text}</p><a class="button" href="#shop">Explore products</a></div>`;
+  return `<div class="empty"><h2>${title}</h2><p>${text}</p><a class="button" href="#shop" data-reset-search>Explore products</a></div>`;
 }
 function shop() {
   const query = $("#search").value.trim().toLowerCase();
@@ -95,6 +95,7 @@ function shop() {
   $("#sort").onchange = (e) => {
     sort = e.target.value;
     shop();
+    $("#sort").focus({ preventScroll: true });
   };
 }
 function cart() {
@@ -122,7 +123,7 @@ function cart() {
 }
 function orders() {
   $("#main").innerHTML =
-    `<div class="page-intro"><div><p class="eyebrow">SAVED ON THIS DEVICE</p><h1>Your orders.</h1><p>Sample purchases, collected in one place.</p></div><a href="#shop">Back to the shop →</a></div>${lastOrder ? '<section class="success-note" role="status"><h2>✓ Your sample order is confirmed.</h2><p>No payment was collected. Your inventory and order history are saved on this device.</p></section>' : ""}${!store.orders.length ? empty("No orders yet", "Your sample orders will appear here after checkout.") : store.orders.map((o) => `<article class="panel order"><header><div><h3>${esc(o.id)}</h3><p class="muted">${esc(new Date(o.date).toLocaleString())}</p></div><span class="pill">Sample order</span></header><ul>${o.items.map((i) => `<li><span>${esc(i.name)} <span class="muted">× ${i.quantity}</span></span><span>${money(i.cents * i.quantity)}</span></li>`).join("")}</ul><div class="order-receipt"><strong>Total ${money(o.total)}</strong><span class="muted">${o.items.reduce((sum, i) => sum + i.quantity, 0)} item(s) · No payment collected</span></div></article>`).join("")}`;
+    `<div class="page-intro"><div><p class="eyebrow">SAVED ON THIS DEVICE</p><h1>Your orders.</h1><p>Sample purchases, collected in one place.</p></div><a href="#shop">Back to the shop →</a></div>${lastOrder ? '<section class="success-note" role="status"><h2>✓ Your sample order is confirmed.</h2><p>No payment was collected. Your inventory and order history are saved on this device.</p></section>' : ""}${!store.orders.length ? empty("No orders yet", "Your sample orders will appear here after checkout.") : store.orders.map((o) => `<article class="panel order"><header><div><h3>${esc(o.id)}</h3><p class="muted">${esc(new Date(o.date).toLocaleString())}</p></div><span class="pill">Sample order</span></header><ul>${o.items.map((i) => `<li><span>${esc(i.name)} <span class="muted">× ${i.quantity}</span></span><span>${money(i.cents * i.quantity)}</span></li>`).join("")}</ul><div class="order-receipt"><strong>Total ${money(o.total)}</strong><span class="muted">${o.items.reduce((sum, i) => sum + i.quantity, 0)} item${o.items.reduce((sum,i)=>sum+i.quantity,0)===1?"":"s"} · No payment collected</span></div></article>`).join("")}`;
 }
 function manage() {
   if (!admin) {
@@ -241,17 +242,24 @@ document.addEventListener("click", async (e) => {
     }
     if (b.dataset.detail) detail(Number(b.dataset.detail));
     if (b.dataset.quantity) {
-      const label = b.getAttribute('aria-label');
+      const label = b.getAttribute("aria-label");
       commit((s) =>
         s.setQuantity(Number(b.dataset.quantity), Number(b.dataset.q)),
       );
       render();
-      const next = [...$('#main').querySelectorAll('button')].find(button => button.getAttribute('aria-label') === label && !button.disabled);
-      (next || $('#main')).focus({ preventScroll: true });
+      const next = [...$("#main").querySelectorAll("button")].find(
+        (button) =>
+          button.getAttribute("aria-label") === label && !button.disabled,
+      );
+      (next || $("#main")).focus({ preventScroll: true });
+      if (Number(b.dataset.q) === 0) notify("Item removed from your cart.");
     }
     if (b.dataset.category) {
       category = b.dataset.category;
       shop();
+      [...$("#main").querySelectorAll("[data-category]")]
+        .find((button) => button.dataset.category === category)
+        ?.focus({ preventScroll: true });
     }
     if (b.dataset.edit) editor(Number(b.dataset.edit));
     if (b.dataset.image) {
@@ -278,6 +286,7 @@ document.addEventListener("click", async (e) => {
 });
 $("#search-form").onsubmit = (e) => {
   e.preventDefault();
+  if (!store) return;
   category = "All";
   if (route() !== "shop") location.hash = "shop";
   else shop();
@@ -286,6 +295,7 @@ $("#search").addEventListener("input", () => {
   if (store && route() === "shop") shop();
 });
 $("#role-toggle").onclick = () => {
+  if (!store) return;
   admin = !admin;
   if (admin) {
     location.hash = "admin";
@@ -405,6 +415,11 @@ for (const d of document.querySelectorAll("dialog")) {
 }
 document.addEventListener("click", (e) => {
   if (e.target.closest("[data-close-detail]")) $("#product-dialog").close();
+  if (e.target.closest("[data-reset-search]")) {
+    $("#search").value = "";
+    category = "All";
+    if (store && route() === "shop") shop();
+  }
 });
 // Failed remote images fall back without looping if the fallback itself fails.
 document.addEventListener(

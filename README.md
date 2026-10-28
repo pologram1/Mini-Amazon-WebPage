@@ -8,6 +8,8 @@
 
 ## At a glance
 
+The polished browser demo includes stock-aware product quantity selection, clearer cart/order feedback, light/dark storefront refinements, and atomic local saves that preserve prior data when storage fails. See the [short demo tour](docs/SHARING.md) for a suggested walkthrough and accurate talking points.
+
 **Status:** working browser demo + academic Java source. Explore product discovery, descriptions, cart rules, sample checkout, order history, and local product management. No real purchases occur.
 
 **Contribution:** academic project by **Miguel A. De Jesus**, presented through Polo Studios. This repository includes the supplied Java application and a browser adaptation for reviewers, with deployment material and automated checks.
