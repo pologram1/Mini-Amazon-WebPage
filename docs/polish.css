@@ -132,9 +132,21 @@ main {
   scrollbar-width: thin;
 }
 .category-tabs button {
+  /* Override the older generic button rule in theme.css in both themes. */
+  color: var(--ink) !important;
   border-radius: 30px;
   padding: 9px 15px;
   min-height: 40px;
+}
+.category-tabs button[aria-pressed="true"] {
+  color: #172b3c !important;
+}
+.button:not(.outline) {
+  color: #172b3c;
+}
+input::placeholder {
+  color: var(--muted);
+  opacity: 1;
 }
 .products {
   gap: 22px;
